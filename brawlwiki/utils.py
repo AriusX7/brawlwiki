@@ -1,5 +1,3 @@
-# import json
-
 import requests
 
 from .errors import BrawlerNotFound
@@ -8,13 +6,16 @@ from .errors import BrawlerNotFound
 API_URL = "https://ariusx7.github.io/brawlwiki-api/api/{}"
 
 
-def get_full_name(name: str) -> str:
+def get_full_name(name: str, data: dict) -> str:
     """Returns full name of a Brawler from partial name.
 
     Parameters
     --------------
     name: :class:`str`
         The partial name of the Brawler.
+    data: :class:`dict`
+        The dictionary containing Brawler data
+        accessed from the Brawlwiki API.
 
     Returns
     ---------
@@ -34,10 +35,7 @@ def get_full_name(name: str) -> str:
     if "primo" in name:
         return "El Primo"
 
-    res = requests.get(API_URL.format("brawlers.json"))
-    brawlers = res.json()
-
-    for brawler in brawlers:
+    for brawler in data:
         if name.lower() in brawler.lower():
             return brawler
 
@@ -68,12 +66,12 @@ class BaseModel:
             If a Brawler can't be found from the given ``name``.
         """
 
-        name = get_full_name(name)
-
         res = requests.get(API_URL.format("brawlers.json"))
-        data = res.json()[name]
+        data: dict = res.json()
 
-        return data
+        name = get_full_name(name, data)
+
+        return data[name]
 
     def __getattr__(self, attr: str):
         # Instead of raising an exception, return
@@ -147,6 +145,11 @@ class Attack(BaseModel):
         name: :class:`str`
             The full/partial name of the Brawler.
 
+        Returns
+        ----------
+        :class:`Attack`
+            ``Attack`` instance from given name.
+
         Raises
         --------
         BrawlerNotFound
@@ -198,11 +201,6 @@ class Super(BaseModel):
         The range of the spawn.
     spawn_speed: Optional[:class:`int`]
         The speed of the spawn.
-
-    Raises
-    --------
-    KeyError
-        If the argument `data` is not proper.
     """
 
     def __init__(self, data: dict):
@@ -246,6 +244,11 @@ class Super(BaseModel):
         name: :class:`str`
             The full/partial name of the Brawler.
 
+        Returns
+        ----------
+        :class:`Super`
+            ``Super`` instance from given name.
+
         Raises
         --------
         BrawlerNotFound
@@ -282,11 +285,6 @@ class StarPowers(BaseModel):
         The description of the second star power.
     second_values: :class:`list`
         The list of numbers in second star power description.
-
-    Raises
-    --------
-    KeyError
-        If the argument `data` is not proper.
     """
 
     def __init__(self, data: dict):
@@ -316,6 +314,11 @@ class StarPowers(BaseModel):
         --------------
         name: :class:`str`
             The full/partial name of the Brawler.
+
+        Returns
+        ----------
+        :class:`StarPowers`
+            ``StarPowers`` instance from given name.
 
         Raises
         --------
@@ -389,6 +392,11 @@ class Skins(BaseModel):
         name: :class:`str`
             The full/partial name of the Brawler.
 
+        Returns
+        ----------
+        :class:`Skins`
+            ``Skins`` instance from given name.
+
         Raises
         --------
         BrawlerNotFound
@@ -440,6 +448,11 @@ class Stats(BaseModel):
         --------------
         name: :class:`str`
             The full/partial name of the Brawler.
+
+        Returns
+        ----------
+        :class:`Stats`
+            ``Stats`` instance from given name.
 
         Raises
         --------
@@ -504,6 +517,11 @@ class VoiceLines(BaseModel):
         --------------
         name: :class:`str`
             The full/partial name of the Brawler.
+
+        Returns
+        ----------
+        :class:`VoiceLines`
+            ``VoiceLines`` instance from given name.
 
         Raises
         --------
