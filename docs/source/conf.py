@@ -12,13 +12,15 @@
 #
 import os
 import sys
-# import re
+import re
 
 sys.path.insert(0, os.path.abspath('../..'))
 
-# with open('../brawlwiki/__init__.py') as f:
-#     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(),
-# re.MULTILINE).group(1)
+with open('../brawlwiki/__init__.py') as f:
+    version = re.search(
+        r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(),
+        re.MULTILINE
+    ).group(1)
 
 # -- Project information -----------------------------------------------------
 
@@ -27,7 +29,7 @@ copyright = '2020, AriusX7'
 author = 'AriusX7'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = version
 
 
 # -- General configuration ---------------------------------------------------
