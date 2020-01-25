@@ -15,7 +15,7 @@ def get_full_name(name: str, data: dict) -> str:
         The partial name of the Brawler.
     data: :class:`dict`
         The dictionary containing Brawler data
-        accessed from the Brawlwiki API.
+        accessed from the BrawlWiki API.
 
     Returns
     ---------
@@ -58,7 +58,7 @@ class BaseModel:
         ---------
         :class:`dict`
             The dictionary containing Brawler data
-            accessed from the Brawlwiki API.
+            accessed from the BrawlWiki API.
 
         Raises
         --------
@@ -88,7 +88,7 @@ class Attack(BaseModel):
     --------------
     data: :class:`dict`
         The dictionary containing Brawler data
-        accessed from the Brawlwiki API.
+        accessed from the BrawlWiki API.
 
     Attributes
     -------------
@@ -110,11 +110,6 @@ class Attack(BaseModel):
         The reload speed of the attack.
     special: Optional[:class:`str`]
         The optional special effect of the attack.
-
-    Raises
-    --------
-    KeyError
-        If the argument `data` is not proper.
     """
 
     def __init__(self, data: dict):
@@ -168,7 +163,7 @@ class Super(BaseModel):
     --------------
     data: :class:`dict`
         The dictionary containing Brawler data
-        accessed from the Brawlwiki API.
+        accessed from the BrawlWiki API.
 
     Attributes
     -------------
@@ -267,7 +262,7 @@ class StarPowers(BaseModel):
     --------------
     data: :class:`dict`
         The dictionary containing Brawler data
-        accessed from the Brawlwiki API.
+        accessed from the BrawlWiki API.
 
     Attributes
     -------------
@@ -277,13 +272,13 @@ class StarPowers(BaseModel):
         The name of the first star power.
     first_description: :class:`str`
         The description of the first star power.
-    first_values: :class:`list`
+    first_values: List[:class:`str`]
         The list of numbers in first star power description.
     second_name: :class:`str`
         The name of the second star power.
     second_description: :class:`str`
         The description of the second star power.
-    second_values: :class:`list`
+    second_values: List[:class:`str`]
         The list of numbers in second star power description.
     """
 
@@ -338,7 +333,7 @@ class Skins(BaseModel):
     --------------
     data: :class:`dict`
         The dictionary containing Brawler data
-        accessed from the Brawlwiki API.
+        accessed from the BrawlWiki API.
 
     Attributes
     -------------
@@ -348,22 +343,23 @@ class Skins(BaseModel):
         The names of the Brawler skins.
     regular: Optional[Dict[:class:`str`, Dict]]
         A dictionary containing regular skins data.
-        The skins data takes skin name as key and has
-        value dictionary as follows:
-        ``"cost"``
-            The cost of the skin (`int`)
-        ``"currency"``
-            The currency used to buy the skin (`str`)
+        The skins data takes skin name as key
+        and has this structure:
+        ::
+            {
+                "cost": 150,
+                "currency": "Gems",
+            }
     special: Optional[Dict[:class:`str`, Dict]]
         A dictionary containing special skins data.
-        The skins data takes skin name as key and has
-        value dictionary as follows:
-        ``"cost"``
-            The cost of the skin (`int`)
-        ``"currency"``
-            The currency used to buy the skin (`str`)
-        ``"event"``
-            The event during which the skin was available (`str`)
+        The skins data takes skin name as key
+        and has this structure:
+        ::
+            {
+                "cost": 150,
+                "currency": "Gems",
+                "event": "2019 Brawlidays"
+            }
     """
 
     def __init__(self, data: dict):
@@ -415,7 +411,7 @@ class Stats(BaseModel):
     --------------
     data: :class:`dict`
         The dictionary containing Brawler data
-        accessed from the Brawlwiki API.
+        accessed from the BrawlWiki API.
 
     Attributes
     -------------
@@ -472,7 +468,7 @@ class VoiceLines(BaseModel):
     --------------
     data: :class:`dict`
         The dictionary containing Brawler data
-        accessed from the Brawlwiki API.
+        accessed from the BrawlWiki API.
 
     Attributes
     -------------

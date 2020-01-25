@@ -1,10 +1,8 @@
 # import json
 
-import requests
-
 from .utils import (
-    get_full_name, Attack, API_URL, Skins,
-    Super, StarPowers, Stats, VoiceLines
+    get_full_name, Attack, Super,
+    Skins, StarPowers, Stats, VoiceLines
 )
 
 
@@ -15,6 +13,9 @@ class Brawler:
     --------------
     name: :class:`str`
         The name of the Brawler.
+    data: :class:`str`
+        The dictionary containing Brawlers data
+        accessed from the BrawlWiki API.
 
     Attributes
     -------------
@@ -42,18 +43,12 @@ class Brawler:
         The stat bars of the Brawler.
     voice_lines: :class:`str`
         The voice lines of the Brawler.
-
-    Raises
-    --------
-    BrawlerNotFound
-        If a Brawler can't be found from the given ``name``.
     """
 
-    def __init__(self, name: str):
-        self.name = get_full_name(name)
+    def __init__(self, name: str, data: dict):
+        self.name = get_full_name(name, data)
 
-        res = requests.get(API_URL.format("brawlers.json"))
-        data = res.json()[self.name]
+        data = data[self.name]
 
         self.description: str = data["description"]
         self.rarity: str = data["rarity"]
