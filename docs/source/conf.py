@@ -16,7 +16,7 @@ import re
 
 sys.path.insert(0, os.path.abspath('../..'))
 
-with open('../brawlwiki/__init__.py') as f:
+with open('../../brawlwiki/__init__.py') as f:
     version = re.search(
         r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(),
         re.MULTILINE
