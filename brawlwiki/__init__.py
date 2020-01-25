@@ -13,4 +13,4 @@ from .errors import *
 __title__ = "brawlwiki"
 __author__ = "AriusX7"
 __license__ = "MIT"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
